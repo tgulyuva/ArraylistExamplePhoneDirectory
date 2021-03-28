@@ -1,0 +1,50 @@
+﻿@using ArraylistExamplePhoneDirectory.Helpers
+@using System.Collections
+@model ArrayList
+
+@{
+    ViewData["Title"] = "Home Page";
+
+    Manager m = new Manager();
+    var list = m.SearchArrayListAll();
+}
+
+@if (Model!=null)
+{
+    
+    <table class="table table-striped table-bordered" id="sortingTable">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">İsim</th>
+                <th scope="col">Soyisim</th>
+                <th scope="col">Numara</th>
+                <th scope="col">İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ContactModel item in list)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>@item.Surname</td>
+                    <td>@item.Phone</td>
+                    <td>
+
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Remove" asp-route-id="@item.Id">Sil</a>
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Update" asp-route-id="@item.Id">Güncelle</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model == null)
+{
+    <h1>Kayıt bulunamadı.</h1>
+
+
+}
